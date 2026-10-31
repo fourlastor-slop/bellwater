@@ -1,0 +1,18 @@
+# Godot's import cache and editor state
+.godot/
+*.translation
+
+# Exported builds
+/build/
+
+# The Python environment for the generators in tools/
+/.venv/
+__pycache__/
+
+# The editor the publish workflow unpacks at the repo root
+/Godot_v*/
+
+# .NET artefacts, should the Mono editor create any
+.mono/
+/.vs/
+*.csproj.user
