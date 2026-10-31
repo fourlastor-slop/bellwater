@@ -1,0 +1,417 @@
+msgid ""
+msgstr ""
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+# ---- places
+
+msgid "Lantern Row"
+msgstr "Via delle Lanterne"
+
+msgid "The Bay"
+msgstr "La Baia"
+
+msgid "The Belfry"
+msgstr "Il Campanile"
+
+msgid "The Cellars"
+msgstr "Le Cantine"
+
+msgid "The Cisterns"
+msgstr "Le Cisterne"
+
+msgid "The Cliff Path"
+msgstr "Il Sentiero della Scogliera"
+
+msgid "The Drinker"
+msgstr "L'Assetato"
+
+msgid "The Fish Stairs"
+msgstr "La Scala del Pesce"
+
+msgid "The Flats"
+msgstr "Le Secche"
+
+msgid "The Great Cistern"
+msgstr "La Grande Cisterna"
+
+msgid "The Lighthouse"
+msgstr "Il Faro"
+
+msgid "The Long Drain"
+msgstr "Il Lungo Scolo"
+
+msgid "The Market"
+msgstr "Il Mercato"
+
+msgid "The Quay"
+msgstr "La Banchina"
+
+msgid "The Roofs"
+msgstr "I Tetti"
+
+msgid "The Ropewalk"
+msgstr "La Corderia"
+
+msgid "The Salt House"
+msgstr "La Casa del Sale"
+
+msgid "The Sea Wall"
+msgstr "Il Muraglione"
+
+msgid "The Sump"
+msgstr "La Sentina"
+
+msgid "The Terrace"
+msgstr "La Terrazza"
+
+msgid "The Well"
+msgstr "Il Pozzo"
+
+msgid "Warehouse Row"
+msgstr "Via dei Magazzini"
+
+# ---- signs and plaques
+
+msgid "The sea left Bellwater when you were small. Every year since, your boat has sunk a little deeper into the sand.\n\nThis morning you heard a bell."
+msgstr "Il mare ha lasciato Bellwater quando avevi pochi anni. Da allora, ogni anno, la tua barca è sprofondata un po' di più nella sabbia.\n\nStamattina hai sentito una campana."
+
+msgid "Use your boathook on anything that crawls.\n(X or J, or gamepad X, to strike. Hold Up or Down to aim it.)"
+msgstr "Usa la gaffa contro tutto ciò che striscia.\n(X o J, o X sul gamepad, per colpire. Tieni premuto Su o Giù per mirare.)"
+
+msgid "THE SEA-WALL BELL. Each bell calls the sea to its own mark, high or low.\n\nNobody has rung this one in years. It was your grandmother's job."
+msgstr "LA CAMPANA DEL MURAGLIONE. Ogni campana chiama il mare al proprio segno, alto o basso.\n\nNessuno la suona da anni. Era il compito di tua nonna."
+
+msgid "THE QUAY. Upper wharf by the crane line only. Ask the Ropewalk for a reel."
+msgstr "LA BANCHINA. Al molo superiore si sale solo con la fune della gru. Chiedi un mulinello alla Corderia."
+
+msgid "THE ROPEWALK. Finest line in Bellwater. Take one reel. Tell no-one."
+msgstr "LA CORDERIA. La lenza migliore di Bellwater. Prendi un mulinello. Non dirlo a nessuno."
+
+msgid "SALT HOUSE. Keep out. Something has been dragging the old bell about in there."
+msgstr "CASA DEL SALE. Vietato entrare. Là dentro qualcosa si trascina dietro la vecchia campana."
+
+msgid "The cellars of Lantern Row. Up the cliff path for the town."
+msgstr "Le cantine di Via delle Lanterne. Per il paese, su per il sentiero della scogliera."
+
+msgid "THE DIVERS' GUILD. Helms upstairs. Mind the urchins."
+msgstr "LA GILDA DEI PALOMBARI. Elmi al piano di sopra. Occhio ai ricci."
+
+msgid "GUILD NOTICE. The Great Cistern has not been inspected since the sea left. West door, at the foot of the Well. Something is breathing down there."
+msgstr "AVVISO DELLA GILDA. La Grande Cisterna non viene ispezionata da quando il mare se n'è andato. Porta ovest, ai piedi del Pozzo. Laggiù qualcosa respira."
+
+msgid "LANTERN ROW. They were all out in the street the day the sea left. They are all still here."
+msgstr "VIA DELLE LANTERNE. Il giorno in cui il mare se n'è andato erano tutti in strada. Sono ancora tutti qui."
+
+msgid "THE MARKET. Lighthouse and open water to the east, if you have the swim for it."
+msgstr "IL MERCATO. A est il faro e il mare aperto, se hai fiato per nuotare fin laggiù."
+
+msgid "THE BAY. Lighthouse due east. The keeper bars the high door from inside. Use the sea door, at low water."
+msgstr "LA BAIA. Il faro è dritto a est. Il guardiano sbarra dall'interno la porta alta. Usa la porta a mare, con la bassa marea."
+
+msgid "THE KEEPER'S BELL. Rung to bring the tide up to the high door. I never trusted the stairs. - E."
+msgstr "LA CAMPANA DEL GUARDIANO. Si suona per portare la marea fino alla porta alta. Le scale non mi hanno mai convinto. - E."
+
+msgid "THE EBB BELL. The lowest mark there is. Ring it and the sea goes out again.\n\nThe iron door beside it has three locks, one for each creature that took a Great Bell."
+msgstr "LA CAMPANA DEL RIFLUSSO. Il segno più basso che ci sia. Suonala e il mare se ne andrà di nuovo.\n\nLa porta di ferro qui accanto ha tre serrature, una per ogni creatura che ha preso una Grande Campana."
+
+msgid "THE TERRACE. Up the ladder for the Belfry. The rope is pulled by the Ringer of Bellwater, and by nobody else."
+msgstr "LA TERRAZZA. Sali la scala per il Campanile. La fune la tira il Campanaro di Bellwater, e nessun altro."
+
+msgid "THE GREAT BELL OF BELLWATER. Three bells hold the sea; the fourth calls it home.\n\nSomething at the bottom of the Well is drinking it. Ring the Ebb, go down, and stop it."
+msgstr "LA GRANDE CAMPANA DI BELLWATER. Tre campane trattengono il mare; la quarta lo richiama a casa.\n\nQualcosa in fondo al Pozzo lo sta bevendo. Suona la Campana del Riflusso, scendi e fermalo."
+
+msgid "Your grandmother, the last Ringer, turned to salt with her hands on the rope.\n\nShe was still ringing when the sea left."
+msgstr "Tua nonna, l'ultima Campanara, è diventata di sale con le mani sulla fune.\n\nStava ancora suonando quando il mare se n'è andato."
+
+# ---- things you find
+
+msgid "THE REEL"
+msgstr "IL MULINELLO"
+
+msgid "A ringer's line on a brass reel.\nPress CAST (C or L, gamepad B) near an iron ring, in the direction you hold, to reel yourself in."
+msgstr "La lenza di un campanaro su un mulinello d'ottone.\nPremi LANCIA (C o L, B sul gamepad) vicino a un anello di ferro, nella direzione che tieni premuta, per tirarti fino all'anello."
+
+msgid "THE BRASS HELM"
+msgstr "L'ELMO DI OTTONE"
+
+msgid "An old diver's helm. Heavy enough to sink you.\nHold DOWN in water to dive. Watch your breath, and look for bubble vents."
+msgstr "Un vecchio elmo da palombaro. Pesa abbastanza da farti affondare.\nTieni premuto GIÙ in acqua per immergerti. Occhio al fiato, e cerca gli sfiati di bolle."
+
+msgid "THE BELLOWS"
+msgstr "IL MANTICE"
+
+msgid "Your grandmother's forge bellows.\nPress JUMP in mid-air for a second leap. Under water, it's a burst of speed."
+msgstr "Il mantice della fucina di tua nonna.\nPremi SALTA a mezz'aria per un secondo balzo. Sott'acqua, è uno scatto di velocità."
+
+msgid "THE TUNING FORK"
+msgstr "IL DIAPASON"
+
+msgid "Struck, it sings every tide you have called.\nPress FORK (F or V, gamepad Y) anywhere to send the sea to any mark you know."
+msgstr "Se lo percuoti, canta ogni marea che hai chiamato.\nPremi DIAPASON (F o V, Y sul gamepad) ovunque per mandare il mare a qualunque segno conosci."
+
+msgid "A PEARL"
+msgstr "UNA PERLA"
+
+msgid "The sea made this, and left it behind.\nYou feel sturdier. One more pearl of health."
+msgstr "L'ha fatta il mare, e l'ha lasciata qui.\nTi senti più in forze. Una perla di salute in più."
+
+msgid "AN AIR SAC"
+msgstr "UNA VESCICA D'ARIA"
+
+msgid "A fish's swim bladder, still full.\nYou can hold your breath for longer."
+msgstr "La vescica natatoria di un pesce, ancora piena.\nPuoi trattenere il fiato più a lungo."
+
+msgid "THE LONG LINE"
+msgstr "LA LENZA LUNGA"
+
+msgid "Good tarred line, and plenty of it.\nThe Reel now reaches much further."
+msgstr "Buona lenza incatramata, e ce n'è parecchia.\nOra il Mulinello arriva molto più lontano."
+
+msgid "THE BARBED HOOK"
+msgstr "IL RAFFIO"
+
+msgid "A cruel old gaff, sharper than yours.\nYour boathook strikes twice as hard."
+msgstr "Un vecchio raffio crudele, più affilato del tuo uncino.\nLa tua gaffa colpisce con il doppio della forza."
+
+# ---- the story, as it happens
+
+msgid "The sea left Bellwater when you were small.\n\nThis morning, far off and very faint, you heard a bell."
+msgstr "Il mare ha lasciato Bellwater quando avevi pochi anni.\n\nStamattina, lontana e debolissima, hai sentito una campana."
+
+msgid "Move with arrows, WASD or the stick. Jump with Space or A."
+msgstr "Muoviti con le frecce, WASD o lo stick. Salta con Spazio o A."
+
+msgid "Rested. The lamp will remember you."
+msgstr "Hai riposato. Il lume si ricorderà di te."
+
+msgid "The sea is already at this bell's mark."
+msgstr "Il mare è già al segno di questa campana."
+
+msgid "THE SEA RISES"
+msgstr "IL MARE SALE"
+
+msgid "THE SEA FALLS"
+msgstr "IL MARE SI RITIRA"
+
+msgid "THE SEA COMES HOME"
+msgstr "IL MARE TORNA A CASA"
+
+msgid "IT BRINGS UP THE SEA"
+msgstr "RIGURGITA IL MARE"
+
+msgid "Three great locks, and %d of them still shut. Each one holds until the creature that keeps a Great Bell is gone."
+msgstr "Tre grandi serrature. Ancora chiuse: %d. Ognuna resiste finché non se ne va la creatura che tiene una Grande Campana."
+
+msgid "The door will not move. The whole sea is leaning on it."
+msgstr "La porta non si muove. Ci preme sopra il mare intero."
+
+msgid "An iron ring on a door too heavy to shift by hand. It wants a good line and a strong reel."
+msgstr "Un anello di ferro su una porta troppo pesante da spostare a mano. Servono una buona lenza e un mulinello robusto."
+
+msgid "You pull the rope. It lifts the weight of a house, and the bell makes no sound at all.\n\nThere is no sea in the world for it to call."
+msgstr "Tiri la fune. Solleva il peso di una casa, e la campana non emette alcun suono.\n\nNon c'è mare al mondo da chiamare."
+
+msgid "The Hermit has fled. The bell it wore is only a bell again, and the bell is still in tune."
+msgstr "Il Paguro è fuggito. La campana che indossava è tornata a essere solo una campana, ed è ancora intonata."
+
+msgid "The rope gives way at last. The bell drops onto the roof, and whatever it was tied to is free of it."
+msgstr "La corda finalmente cede. La campana cade sul tetto, e ciò a cui era legata se n'è liberato."
+
+msgid "By morning the harbour was full of boats, and the streets were full of people who could not say how long they had slept.\n\nYou kept ringing until she took the rope from your hands."
+msgstr "Al mattino il porto era pieno di barche, e le strade piene di gente che non sapeva dire quanto a lungo avesse dormito.\n\nHai continuato a suonare finché lei non ti ha preso la fune dalle mani."
+
+# ---- bosses
+
+msgid "THE HERMIT"
+msgstr "IL PAGURO"
+
+msgid "THE CONGER"
+msgstr "IL GRONGO"
+
+msgid "THE ALBATROSS"
+msgstr "L'ALBATRO"
+
+msgid "THE DRINKER"
+msgstr "L'ASSETATO"
+
+# ---- tides
+
+msgid "Dry"
+msgstr "Asciutto"
+
+msgid "Low Water"
+msgstr "Bassa Marea"
+
+msgid "Half Tide"
+msgstr "Mezza Marea"
+
+msgid "High Water"
+msgstr "Alta Marea"
+
+msgid "Spring Tide"
+msgstr "Marea Viva"
+
+msgid "The Return"
+msgstr "Il Ritorno"
+
+msgid "CALL THE SEA"
+msgstr "CHIAMA IL MARE"
+
+msgid "  (here)"
+msgstr "  (qui)"
+
+# ---- prompts
+
+msgid "rest"
+msgstr "riposa"
+
+msgid "ring"
+msgstr "suona"
+
+msgid "open"
+msgstr "apri"
+
+# ---- menus
+
+msgid "call the sea home"
+msgstr "riporta il mare a casa"
+
+msgid "New Game"
+msgstr "Nuova partita"
+
+msgid "Continue"
+msgstr "Continua"
+
+msgid "Controls"
+msgstr "Comandi"
+
+msgid "Options"
+msgstr "Opzioni"
+
+msgid "Quit"
+msgstr "Esci"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Erase and start"
+msgstr "Cancella e inizia"
+
+msgid "This will erase your saved game."
+msgstr "Così cancellerai la partita salvata."
+
+msgid "Resume"
+msgstr "Riprendi"
+
+msgid "Back to last lamp"
+msgstr "Torna all'ultimo lume"
+
+msgid "Quit to title"
+msgstr "Torna al titolo"
+
+msgid "Music"
+msgstr "Musica"
+
+msgid "Sound"
+msgstr "Suoni"
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "Fullscreen"
+msgstr "Schermo intero"
+
+msgid "Done"
+msgstr "Fatto"
+
+msgid "on"
+msgstr "sì"
+
+msgid "off"
+msgstr "no"
+
+msgid "OPTIONS"
+msgstr "OPZIONI"
+
+msgid "CONTROLS"
+msgstr "COMANDI"
+
+msgid "Keyboard"
+msgstr "Tastiera"
+
+msgid "Gamepad"
+msgstr "Gamepad"
+
+msgid "Move / aim"
+msgstr "Muovi / mira"
+
+msgid "Arrows, WASD"
+msgstr "Frecce, WASD"
+
+msgid "Jump"
+msgstr "Salta"
+
+msgid "Space, Z, K"
+msgstr "Spazio, Z, K"
+
+msgid "Boathook"
+msgstr "Gaffa"
+
+msgid "Cast the reel"
+msgstr "Lancia la lenza"
+
+msgid "Ring, read, rest"
+msgstr "Suona, leggi, riposa"
+
+msgid "Up, E"
+msgstr "Su, E"
+
+msgid "Up, LB, RB"
+msgstr "Su, LB, RB"
+
+msgid "Dive"
+msgstr "Immergiti"
+
+msgid "Hold Down"
+msgstr "Tieni Giù"
+
+msgid "Tuning fork"
+msgstr "Diapason"
+
+msgid "Map and pause"
+msgstr "Mappa e pausa"
+
+msgid "Enter or A"
+msgstr "Invio o A"
+
+msgid "Tide: "
+msgstr "Marea: "
+
+msgid "Pearls: %d    Air: %d"
+msgstr "Perle: %d    Aria: %d"
+
+msgid "Time: %d:%02d"
+msgstr "Tempo: %d:%02d"
+
+# ---- the end
+
+msgid "The sea came home."
+msgstr "Il mare è tornato a casa."
+
+msgid "Time  %d:%02d:%02d"
+msgstr "Tempo  %d:%02d:%02d"
+
+msgid "Wrecked  %d times"
+msgstr "Naufragi  %d"
+
+msgid "Found  %d of %d"
+msgstr "Trovati  %d su %d"
+
+msgid "Everything you saw and heard was made for this game,"
+msgstr "Tutto ciò che hai visto e sentito è stato creato per questo gioco,"
+
+msgid "by code, in Godot 4.7."
+msgstr "con il codice, in Godot 4.7."

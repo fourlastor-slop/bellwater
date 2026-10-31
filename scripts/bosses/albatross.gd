@@ -23,7 +23,7 @@ func should_spawn() -> bool:
 
 
 func begin() -> void:
-	boss_name = "THE ALBATROSS"
+	boss_name = tr("THE ALBATROSS")
 	max_hp = 16
 	hp = max_hp
 	hw = 26
@@ -185,7 +185,7 @@ func _die_tick() -> void:
 		reveal("albatross_dead")
 		end_fight()
 		dead = true
-		game.hud.say("The rope gives way at last. The bell drops onto the roof, and whatever it was tied to is free of it.")
+		game.hud.say(tr("The rope gives way at last. The bell drops onto the roof, and whatever it was tied to is free of it."))
 
 
 func render() -> void:

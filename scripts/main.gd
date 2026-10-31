@@ -68,7 +68,8 @@ func _on_menu(what: String) -> void:
 			game.begin(false)
 			game.fade = 1.0
 			G.save_game()
-			game.hud.say("The sea left Bellwater when you were small.\n\nThis morning, far off and very faint, you heard a bell.", game.hud.show_note.bind("Move with arrows, WASD or the stick. Jump with Space or A."))
+			var hint := game.hud.show_note.bind(tr("Move with arrows, WASD or the stick. Jump with Space or A."))
+			game.hud.say(tr("The sea left Bellwater when you were small.\n\nThis morning, far off and very faint, you heard a bell."), hint)
 		"continue":
 			menu.close()
 			if G.load_game():

@@ -534,7 +534,7 @@ func _enter_room(r: WorldMap.Room) -> void:
 	if not returning and ending == 0:
 		Sfx.music(r.music)
 	if r.title != "":
-		hud.show_area(r.title)
+		hud.show_area(tr(r.title))
 	if r.dark > 0.0:
 		ocean.dark_target = r.dark
 	else:
@@ -625,7 +625,7 @@ func call_tide(level: int) -> bool:
 	tide_ticks = 0
 	shake = maxf(shake, 2.5)
 	if not sim:
-		hud.show_banner("THE SEA RISES" if rising else "THE SEA FALLS")
+		hud.show_banner(tr("THE SEA RISES") if rising else tr("THE SEA FALLS"))
 		Sfx.rumble(true)
 	return true
 
@@ -780,7 +780,7 @@ func begin_return() -> void:
 	G.s.rung["5"] = true
 	tide_speed = 150.0
 	call_tide(5)
-	hud.show_banner("THE SEA COMES HOME")
+	hud.show_banner(tr("THE SEA COMES HOME"))
 	Sfx.music("return")
 	ride = [Vector2(2200, 1256), Vector2(1520, 1256), Vector2(1440, 1240), Vector2(1440, 180)]
 	player.enter(Player.STILL)
@@ -850,7 +850,7 @@ func _ending_tick() -> void:
 		wet_y = move_toward(wet_y, cam.y - 260.0, 0.8)
 		G.s.wet_y = wet_y
 	if ending_t == 520:
-		hud.say("By morning the harbour was full of boats, and the streets were full of people who could not say how long they had slept.\n\nYou kept ringing until she took the rope from your hands.")
+		hud.say(tr("By morning the harbour was full of boats, and the streets were full of people who could not say how long they had slept.\n\nYou kept ringing until she took the rope from your hands."))
 	if ending_t > 540 and not hud.dialog_active():
 		fade = minf(fade + 0.012, 1.0)
 		if fade >= 1.0:

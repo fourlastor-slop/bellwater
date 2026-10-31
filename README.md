@@ -12,6 +12,8 @@ About 35-40 minutes to finish, going by the first full playthrough.
 
 ## Play it
 
+In English and Italian: it follows your system's language, and Options changes it.
+
 Get it from [itch.io](https://fourlastor.itch.io/bellwater), for Linux, Windows and macOS. The Windows
 and Mac builds aren't notarized or signed with a paid certificate, so both systems ask the first time:
 
@@ -61,6 +63,7 @@ to start Godot's own signature: set `RCODESIGN` to its path if it isn't on `PATH
 
 ```
 data/rooms/    the 25 rooms, as generated text
+data/lang/     the Italian translation (a standard .po file, keyed by the English text)
 scripts/       the game (core/, entities/, enemies/, bosses/, ui/)
 shaders/       ocean.gdshader (the sea), grade.gdshader (the sepia)
 tools/         everything that generates the game's content
@@ -81,7 +84,7 @@ PYTHONPATH=tools .venv/bin/python tools/gen_audio.py # music and sound
 ## Tests
 
 ```bash
-tools/check.sh              # every boss to the death, the ending, a soak of every room
+tools/check.sh              # every boss to the death, the ending, a soak of every room, every translation
 ```
 
 ```bash

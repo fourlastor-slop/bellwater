@@ -36,7 +36,7 @@ func interactive() -> bool:
 
 
 func prompt() -> String:
-	return "ring"
+	return tr("ring")
 
 
 func interact_point() -> Vector2:
@@ -72,7 +72,7 @@ func _strike() -> void:
 	if props.has("flag"):
 		G.set_flag(str(props.flag))
 	if not game.call_tide(level):
-		game.hud.show_note("The sea is already at this bell's mark.")
+		game.hud.show_note(tr("The sea is already at this bell's mark."))
 	game.set_checkpoint(x, y)
 
 

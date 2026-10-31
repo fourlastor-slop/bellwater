@@ -44,7 +44,7 @@ func open(m: String) -> void:
 			items = ["Resume", "Back to last lamp", "Options", "Quit to title"]
 			_build_map()
 		"options":
-			items = ["Music", "Sound", "Fullscreen", "Done"]
+			items = ["Music", "Sound", "Language", "Fullscreen", "Done"]
 		"controls":
 			items = ["Done"]
 		"ending":
@@ -139,6 +139,10 @@ func _options_input() -> void:
 		Sfx.apply_volume()
 		Sfx.play("clink")
 		G.save_settings()
+	elif item == "Language" and (d != 0 or Input.is_action_just_pressed("accept")):
+		G.settings.lang = "en" if G.italian() else "it"
+		G.apply_language()
+		G.save_settings()
 	elif item == "Fullscreen" and (d != 0 or Input.is_action_just_pressed("accept")):
 		G.settings.fullscreen = not G.settings.fullscreen
 		G.apply_settings()
@@ -154,13 +158,13 @@ func _paint() -> void:
 			_paint_title(ci)
 		"confirm":
 			_dim(ci, 0.6)
-			PixelFont.centered(ci, 70, "This will erase your saved game.", BONE, SHADOW)
+			PixelFont.centered(ci, 70, tr("This will erase your saved game."), BONE, SHADOW)
 			_list(ci, 100, 140)
 		"pause":
 			_paint_pause(ci)
 		"options":
 			_dim(ci, 0.75)
-			PixelFont.centered(ci, 40, "OPTIONS", GOLD, SHADOW)
+			PixelFont.centered(ci, 40, tr("OPTIONS"), GOLD, SHADOW)
 			_paint_options(ci)
 		"controls":
 			_dim(ci, 0.85)
@@ -178,7 +182,7 @@ func _list(ci: CanvasItem, y: float, x: float) -> void:
 		var on := i == sel
 		if on:
 			ci.draw_rect(Rect2(x - 10, y + i * 13 + 2, 4, 5), GOLD)
-		PixelFont.draw(ci, Vector2(x, y + i * 13), items[i], GOLD if on else BONE, SHADOW)
+		PixelFont.draw(ci, Vector2(x, y + i * 13), tr(items[i]), GOLD if on else BONE, SHADOW)
 
 
 func _paint_title(ci: CanvasItem) -> void:
@@ -187,7 +191,7 @@ func _paint_title(ci: CanvasItem) -> void:
 	PixelFont.draw(ci, Vector2(x, 3.5), "BELLWATER", Color("2a1f1c"))
 	PixelFont.draw(ci, Vector2(x, 3), "BELLWATER", BONE)
 	ci.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	PixelFont.centered(ci, 45, "call the sea home", Color("2a1f1c"), Color(0.95, 0.9, 0.78, 0.45))
+	PixelFont.centered(ci, 45, tr("call the sea home"), Color("2a1f1c"), Color(0.95, 0.9, 0.78, 0.45))
 	var h := items.size() * 13 + 6
 	ci.draw_rect(Rect2(112, 176 - h - 2, 96, h), Color(0.05, 0.05, 0.09, 0.55))
 	_list(ci, 176 - h + 1, 128)
@@ -200,7 +204,7 @@ func _paint_options(ci: CanvasItem) -> void:
 		var c := GOLD if on else BONE
 		if on:
 			ci.draw_rect(Rect2(80, y + i * 14 + 2, 4, 5), GOLD)
-		PixelFont.draw(ci, Vector2(92, y + i * 14), items[i], c, SHADOW)
+		PixelFont.draw(ci, Vector2(92, y + i * 14), tr(items[i]), c, SHADOW)
 		var v := ""
 		match items[i]:
 			"Music":
@@ -208,7 +212,9 @@ func _paint_options(ci: CanvasItem) -> void:
 			"Sound":
 				v = _bar(float(G.settings.sfx))
 			"Fullscreen":
-				v = "on" if G.settings.fullscreen else "off"
+				v = tr("on") if G.settings.fullscreen else tr("off")
+			"Language":
+				v = "Italiano" if G.italian() else "English"
 		PixelFont.draw(ci, Vector2(170, y + i * 14), v, c, SHADOW)
 
 
@@ -218,26 +224,26 @@ func _bar(v: float) -> String:
 
 
 func _paint_controls(ci: CanvasItem) -> void:
-	PixelFont.centered(ci, 14, "CONTROLS", GOLD, SHADOW)
+	PixelFont.centered(ci, 14, tr("CONTROLS"), GOLD, SHADOW)
 	var dim := Color("c8bcb8")
-	PixelFont.draw(ci, Vector2(126, 30), "Keyboard", GOLD, SHADOW)
-	PixelFont.draw(ci, Vector2(226, 30), "Gamepad", GOLD, SHADOW)
+	PixelFont.draw(ci, Vector2(126, 30), tr("Keyboard"), GOLD, SHADOW)
+	PixelFont.draw(ci, Vector2(226, 30), tr("Gamepad"), GOLD, SHADOW)
 	var rows := [
-		["Move / aim", "Arrows, WASD", "Stick, D-pad"],
-		["Jump", "Space, Z, K", "A"],
-		["Boathook", "X, J", "X"],
-		["Cast the reel", "C, L", "B"],
-		["Ring, read, rest", "Up, E", "Up, LB, RB"],
-		["Dive", "Hold Down", "Hold Down"],
-		["Tuning fork", "F, V", "Y"],
-		["Map and pause", "Tab, M, Esc", "Back, Start"],
+		[tr("Move / aim"), tr("Arrows, WASD"), "Stick, D-pad"],
+		[tr("Jump"), tr("Space, Z, K"), "A"],
+		[tr("Boathook"), "X, J", "X"],
+		[tr("Cast the reel"), "C, L", "B"],
+		[tr("Ring, read, rest"), tr("Up, E"), tr("Up, LB, RB")],
+		[tr("Dive"), tr("Hold Down"), tr("Hold Down")],
+		[tr("Tuning fork"), "F, V", "Y"],
+		[tr("Map and pause"), "Tab, M, Esc", "Back, Start"],
 	]
 	for i in rows.size():
 		var y := 44 + i * 13
 		PixelFont.draw(ci, Vector2(30, y), rows[i][0], BONE, SHADOW)
 		PixelFont.draw(ci, Vector2(126, y), rows[i][1], dim, SHADOW)
 		PixelFont.draw(ci, Vector2(226, y), rows[i][2], dim, SHADOW)
-	PixelFont.centered(ci, 162, "Enter or A", GOLD, SHADOW)
+	PixelFont.centered(ci, 162, tr("Enter or A"), GOLD, SHADOW)
 
 
 func _build_map() -> void:
@@ -298,7 +304,7 @@ func _paint_pause(ci: CanvasItem) -> void:
 	var ly := oy + int(game.water_y) / 16
 	if ly < oy + h:
 		PixelFont.draw(ci, Vector2(ox + w + 3, ly - 4), "<", Color("5fcdbb"))
-	PixelFont.draw(ci, Vector2(20, oy + h + 7), "Tide: " + G.TIDE_NAMES[int(G.s.level)], Color("5fcdbb"), SHADOW)
+	PixelFont.draw(ci, Vector2(20, oy + h + 7), tr("Tide: ") + tr(G.TIDE_NAMES[int(G.s.level)]), Color("5fcdbb"), SHADOW)
 	_paint_items(ci, oy + h + 19)
 	_list(ci, oy + h + 7, 196)
 
@@ -310,10 +316,10 @@ func _paint_items(ci: CanvasItem, y: int) -> void:
 		if G.has(it):
 			ci.draw_texture_rect_region(icons, Rect2(x, y, 12, 12), Rect2(i * 12, 0, 12, 12))
 			x += 14
-	var line := "Pearls: %d    Air: %d" % [int(G.s.max_hp) - 3, int(G.s.air)]
+	var line := tr("Pearls: %d    Air: %d") % [int(G.s.max_hp) - 3, int(G.s.air)]
 	PixelFont.draw(ci, Vector2(20, y + 16), line, Color("c8bcb8"), SHADOW)
 	var secs := int(float(G.s.time))
-	PixelFont.draw(ci, Vector2(20, y + 28), "Time: %d:%02d" % [secs / 60, secs % 60], Color("c8bcb8"), SHADOW)
+	PixelFont.draw(ci, Vector2(20, y + 28), tr("Time: %d:%02d") % [secs / 60, secs % 60], Color("c8bcb8"), SHADOW)
 
 
 const PICKUP_ORDER: Array[String] = ["reel", "helm", "bellows", "fork", "pearl", "air", "line", "barb"]
@@ -322,12 +328,12 @@ const PICKUP_ORDER: Array[String] = ["reel", "helm", "bellows", "fork", "pearl",
 func _paint_ending(ci: CanvasItem) -> void:
 	ci.draw_rect(Rect2(0, 0, G.VIEW_W, G.VIEW_H), Color("0d0f18"))
 	PixelFont.centered(ci, 34, "BELLWATER", GOLD)
-	PixelFont.centered(ci, 54, "The sea came home.", BONE)
+	PixelFont.centered(ci, 54, tr("The sea came home."), BONE)
 	var secs := int(stats.get("time", 0.0))
-	PixelFont.centered(ci, 84, "Time  %d:%02d:%02d" % [secs / 3600, secs / 60 % 60, secs % 60], Color("c8bcb8"))
-	PixelFont.centered(ci, 96, "Wrecked  %d times" % int(stats.get("deaths", 0)), Color("c8bcb8"))
-	PixelFont.centered(ci, 108, "Found  %d of %d" % [int(stats.get("found", 0)), int(stats.get("total", 0))], Color("c8bcb8"))
-	PixelFont.centered(ci, 136, "Everything you saw and heard was made for this game,", Color("8a93a6"))
-	PixelFont.centered(ci, 146, "by code, in Godot 4.7.", Color("8a93a6"))
+	PixelFont.centered(ci, 84, tr("Time  %d:%02d:%02d") % [secs / 3600, secs / 60 % 60, secs % 60], Color("c8bcb8"))
+	PixelFont.centered(ci, 96, tr("Wrecked  %d times") % int(stats.get("deaths", 0)), Color("c8bcb8"))
+	PixelFont.centered(ci, 108, tr("Found  %d of %d") % [int(stats.get("found", 0)), int(stats.get("total", 0))], Color("c8bcb8"))
+	PixelFont.centered(ci, 136, tr("Everything you saw and heard was made for this game,"), Color("8a93a6"))
+	PixelFont.centered(ci, 146, tr("by code, in Godot 4.7."), Color("8a93a6"))
 	if t > 90:
-		PixelFont.centered(ci, 164, "Enter or A", GOLD)
+		PixelFont.centered(ci, 164, tr("Enter or A"), GOLD)

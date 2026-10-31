@@ -28,7 +28,7 @@ func should_spawn() -> bool:
 
 
 func begin() -> void:
-	boss_name = "THE CONGER"
+	boss_name = tr("THE CONGER")
 	max_hp = 18
 	hp = max_hp
 	hw = 12

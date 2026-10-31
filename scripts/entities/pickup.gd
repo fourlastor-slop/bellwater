@@ -58,7 +58,7 @@ func _collect() -> void:
 	game.fx.ring_wave(x, y - 6, Color(1.0, 0.9, 0.5))
 	game.fx_burst(x, y - 6, Color("f7d154"), 12)
 	var info: Array = INFO[item]
-	game.hud.say("%s\n\n%s" % [info[0], info[1]])
+	game.hud.say("%s\n\n%s" % [tr(info[0]), tr(info[1])])
 	G.save_game()
 
 

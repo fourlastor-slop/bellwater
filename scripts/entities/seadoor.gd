@@ -29,7 +29,7 @@ func interactive() -> bool:
 
 
 func prompt() -> String:
-	return "open"
+	return tr("open")
 
 
 func interact() -> void:
@@ -43,15 +43,15 @@ func interact() -> void:
 				missing += 1
 		if missing > 0:
 			game.snd("clink")
-			game.hud.say("Three great locks, and %d of them still shut. Each one holds until the creature that keeps a Great Bell is gone." % missing)
+			game.hud.say(tr("Three great locks, and %d of them still shut. Each one holds until the creature that keeps a Great Bell is gone.") % missing)
 			return
 	if game.water_y < sill - 2:
 		game.snd("clink")
-		game.hud.say("The door will not move. The whole sea is leaning on it.")
+		game.hud.say(tr("The door will not move. The whole sea is leaning on it."))
 		return
 	if props.has("needs") and not G.has(str(props.needs)):
 		game.snd("clink")
-		game.hud.say("An iron ring on a door too heavy to shift by hand. It wants a good line and a strong reel.")
+		game.hud.say(tr("An iron ring on a door too heavy to shift by hand. It wants a good line and a strong reel."))
 		return
 	opening = 1
 	for c in cells:

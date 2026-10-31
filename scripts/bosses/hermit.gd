@@ -27,7 +27,7 @@ func should_spawn() -> bool:
 
 
 func begin() -> void:
-	boss_name = "THE HERMIT"
+	boss_name = tr("THE HERMIT")
 	max_hp = 14
 	hp = max_hp
 	hw = 24
@@ -196,7 +196,7 @@ func _die_tick() -> void:
 		reveal("hermit_dead")
 		end_fight()
 		dead = true
-		game.hud.say("The Hermit has fled. The bell it wore is only a bell again, and the bell is still in tune.")
+		game.hud.say(tr("The Hermit has fled. The bell it wore is only a bell again, and the bell is still in tune."))
 
 
 func render() -> void:

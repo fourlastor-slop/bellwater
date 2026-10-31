@@ -21,7 +21,7 @@ func interactive() -> bool:
 
 
 func prompt() -> String:
-	return "ring" if G.flag("drinker_dead") else ""
+	return tr("ring") if G.flag("drinker_dead") else ""
 
 
 func interact_point() -> Vector2:
@@ -30,7 +30,7 @@ func interact_point() -> Vector2:
 
 func interact() -> void:
 	if not G.flag("drinker_dead"):
-		game.hud.say("You pull the rope. It lifts the weight of a house, and the bell makes no sound at all.\n\nThere is no sea in the world for it to call.")
+		game.hud.say(tr("You pull the rope. It lifts the weight of a house, and the bell makes no sound at all.\n\nThere is no sea in the world for it to call."))
 		return
 	swing_v = 0.03
 	game.start_finale()

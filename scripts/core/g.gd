@@ -27,7 +27,8 @@ var headless_sim := false
 
 ## Everything that goes in the save file.
 var s := {}
-var settings := {"music": 0.8, "sfx": 0.9, "fullscreen": false}
+## lang stays empty until the player picks one, and the game follows the system's language.
+var settings := {"music": 0.8, "sfx": 0.9, "fullscreen": false, "lang": ""}
 
 
 func _ready() -> void:
@@ -137,6 +138,15 @@ func load_settings() -> void:
 	apply_settings()
 
 
+func apply_language() -> void:
+	if str(settings.lang) != "":
+		TranslationServer.set_locale(str(settings.lang))
+
+
+func italian() -> bool:
+	return TranslationServer.get_locale().begins_with("it")
+
+
 func save_settings() -> void:
 	var f := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	if f:
@@ -144,6 +154,7 @@ func save_settings() -> void:
 
 
 func apply_settings() -> void:
+	apply_language()
 	if DisplayServer.get_name() == "headless":
 		return
 	var mode := DisplayServer.WINDOW_MODE_FULLSCREEN if settings.fullscreen else DisplayServer.WINDOW_MODE_WINDOWED

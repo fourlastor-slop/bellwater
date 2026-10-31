@@ -215,11 +215,19 @@ func play() -> void:
 	expect("d-pad changes the volume", not is_equal_approx(v, float(G.settings.music)))
 	G.settings.music = v
 	Sfx.apply_volume()
+	var was: String = G.settings.lang
+	var italian := G.italian()
+	menu.sel = menu.items.find("Language")
+	await tap(JOY_BUTTON_DPAD_RIGHT)
+	expect("d-pad changes the language", G.italian() != italian)
+	await tap(JOY_BUTTON_DPAD_RIGHT)
+	expect("and back again", G.italian() == italian)
+	G.settings.lang = was
 	G.save_settings()
-	menu.sel = 3
+	menu.sel = menu.items.find("Done")
 	await tap(JOY_BUTTON_A)
 	await wait(10)
-	menu.sel = 3
+	menu.sel = menu.items.find("Quit to title")
 	await tap(JOY_BUTTON_A)
 	await wait(30)
 	expect("A quits to the title", menu.mode == "title")

@@ -219,7 +219,7 @@ func _paint_fork(ci: CanvasItem) -> void:
 	ci.draw_rect(Rect2(0, 0, G.VIEW_W, G.VIEW_H), Color(0.03, 0.05, 0.1, 0.55))
 	var x := 112
 	var y := 26
-	PixelFont.centered(ci, y - 12, "CALL THE SEA", Color("f7d154"), Color(0, 0, 0, 0.8))
+	PixelFont.centered(ci, y - 12, tr("CALL THE SEA"), Color("f7d154"), Color(0, 0, 0, 0.8))
 	var row := 0
 	for lv in range(5, -1, -1):
 		if not G.s.rung.has(str(lv)):
@@ -230,5 +230,5 @@ func _paint_fork(ci: CanvasItem) -> void:
 		var col := Color("f7d154") if sel else Color("efe6d0")
 		if sel:
 			ci.draw_rect(Rect2(x - 12, yy + 1, 4, 5), Color("f7d154"))
-		PixelFont.draw(ci, Vector2(x, yy), G.TIDE_NAMES[lv] + ("  (here)" if here else ""), col, Color(0, 0, 0, 0.8))
+		PixelFont.draw(ci, Vector2(x, yy), tr(G.TIDE_NAMES[lv]) + (tr("  (here)") if here else ""), col, Color(0, 0, 0, 0.8))
 		row += 1

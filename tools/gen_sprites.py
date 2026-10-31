@@ -93,6 +93,26 @@ kddddddddddk
 ....nnNN....
 """
 
+PLAQUE = """
+.kkkkkkkkkkkk.
+kCyyyyyyyyyyCk
+kyccccccccccCk
+kycCCCCCCCccCk
+kyccccccccccCk
+kycCCCCCCCCcCk
+kyccccccccccCk
+kycCCCCCccccCk
+kyccccccccccCk
+kCCCCCCCCCCCCk
+.kkkkkkkkkkkk.
+....kggGGk....
+....kggGGk....
+....kggGGk....
+....kggGGk....
+...kgggGGGk...
+..kkkkkkkkkk..
+"""
+
 PICKUPS = {
     "reel": """
 .....kkk....
@@ -556,6 +576,7 @@ yy
         frames.append(f)
     save("lamp", frames)
     sprite(SIGN).save(OUT + "sign.png")
+    sprite(PLAQUE).save(OUT + "plaque.png")
     keys = list(PICKUPS)
     save("pickups", [sprite(PICKUPS[k]) for k in keys], 12, 12)
     print("pickup order", keys)

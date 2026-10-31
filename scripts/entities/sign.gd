@@ -1,11 +1,10 @@
 extends Ent
-## A wooden sign, or a plaque if drawn with no sprite.
+## A wooden sign, or a brass plaque for the Belfry.
 
 
 func begin() -> void:
 	solid_body = false
-	if not props.has("plain"):
-		sprite = make_sprite("res://assets/gfx/sign.png", 1)
+	sprite = make_sprite("res://assets/gfx/plaque.png" if props.has("plain") else "res://assets/gfx/sign.png", 1)
 
 
 func interactive() -> bool:
@@ -14,4 +13,4 @@ func interactive() -> bool:
 
 func interact() -> void:
 	game.snd("text")
-	game.hud.say(str(props.get("text", "...")))
+	game.hud.say(tr(str(props.get("text", "..."))))

@@ -15,7 +15,7 @@ func interactive() -> bool:
 
 
 func prompt() -> String:
-	return "rest"
+	return tr("rest")
 
 
 func interact_point() -> Vector2:
@@ -40,4 +40,4 @@ func interact() -> void:
 	game.player.breath = G.max_breath()
 	game.snd("lamp")
 	game.fx.ring_wave(x, y - 12, Color(1.0, 0.85, 0.5))
-	game.hud.show_note("Rested. The lamp will remember you.")
+	game.hud.show_note(tr("Rested. The lamp will remember you."))

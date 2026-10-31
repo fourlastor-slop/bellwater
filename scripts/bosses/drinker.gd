@@ -26,7 +26,7 @@ func should_spawn() -> bool:
 
 
 func begin() -> void:
-	boss_name = "THE DRINKER"
+	boss_name = tr("THE DRINKER")
 	max_hp = 22
 	hp = max_hp
 	hw = 8
@@ -144,7 +144,7 @@ func _start_flood() -> void:
 	game.water_target = float(eye.position.y + 20)
 	game.tide_moving = true
 	game.tide_ticks = 0
-	game.hud.show_banner("IT BRINGS UP THE SEA")
+	game.hud.show_banner(tr("IT BRINGS UP THE SEA"))
 
 
 ## The hook reaches the eye only from the top of the flood.
