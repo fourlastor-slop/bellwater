@@ -78,6 +78,7 @@ assets. To change something, edit the generator rather than the output:
 uv venv .venv && uv pip install --python .venv/bin/python pillow numpy scipy
 PYTHONPATH=tools .venv/bin/python tools/world.py   # rooms
 tools/build_art.sh                                  # images
+tools/gen_splash.sh                                 # the boot splash, rendered by the game itself
 PYTHONPATH=tools .venv/bin/python tools/gen_audio.py # music and sound
 ```
 

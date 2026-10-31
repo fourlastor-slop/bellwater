@@ -15,6 +15,11 @@ config/description="The sea left. Ring the bells and call it home."
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/gfx/icon.png"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://assets/gfx/splash.png"
+boot_splash/stretch_mode=2
+boot_splash/use_filter=false
+boot_splash/minimum_display_time=1500
 
 [audio]
 
