@@ -196,13 +196,15 @@ func _paint_texts(ci: CanvasItem) -> void:
 		PixelFont.draw(ci, Vector2(10, 164), area, Color(0.94, 0.9, 0.82, a), Color(0, 0, 0, 0.7 * a))
 	if note_t > 0:
 		var a := minf(note_t / 30.0, 1.0)
-		PixelFont.centered(ci, 150, note, Color(0.94, 0.9, 0.82, a), Color(0, 0, 0, 0.7 * a))
+		# on a phone the bottom of the screen belongs to the thumbs
+		var y := 52 if G.touch_screen() else 150
+		PixelFont.centered(ci, y, note, Color(0.94, 0.9, 0.82, a), Color(0, 0, 0, 0.7 * a))
 
 
 func _paint_dialog(ci: CanvasItem) -> void:
 	var lines: PackedStringArray = dlg_pages[dlg_page]
 	var h := lines.size() * PixelFont.LINE + 10
-	var y := G.VIEW_H - h - 6
+	var y := 24 if G.touch_screen() else G.VIEW_H - h - 6
 	ci.draw_rect(Rect2(8, y, 304, h), Color(0.04, 0.05, 0.1, 0.92))
 	ci.draw_rect(Rect2(8, y, 304, 1), Color("c98a3a"))
 	ci.draw_rect(Rect2(8, y + h - 1, 304, 1), Color("c98a3a"))

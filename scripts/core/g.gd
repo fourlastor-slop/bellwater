@@ -24,6 +24,8 @@ const LONG_REEL := 128.0
 
 ## True while tests run: no save writes, no FX, no audio.
 var headless_sim := false
+## Lets a test have the on-screen gamepad away from a phone.
+var force_touch := false
 
 ## Everything that goes in the save file.
 var s := {}
@@ -143,6 +145,10 @@ func apply_language() -> void:
 		TranslationServer.set_locale(str(settings.lang))
 
 
+func touch_screen() -> bool:
+	return force_touch or OS.has_feature("mobile")
+
+
 func italian() -> bool:
 	return TranslationServer.get_locale().begins_with("it")
 
@@ -155,7 +161,8 @@ func save_settings() -> void:
 
 func apply_settings() -> void:
 	apply_language()
-	if DisplayServer.get_name() == "headless":
+	# a phone starts fullscreen, and asking for a window would bring its system bars back
+	if DisplayServer.get_name() == "headless" or touch_screen():
 		return
 	var mode := DisplayServer.WINDOW_MODE_FULLSCREEN if settings.fullscreen else DisplayServer.WINDOW_MODE_WINDOWED
 	DisplayServer.window_set_mode(mode)

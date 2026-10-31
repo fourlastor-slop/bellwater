@@ -62,6 +62,17 @@ jobs:
         run: tools/export.sh windows
       - name: Mac Build
         run: tools/export.sh macos
+      - name: Android Build
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH"
+          tools/export.sh android
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ runner.temp }}/release.keystore
+          GODOT_ANDROID_KEYSTORE_RELEASE_USER: bellwater
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          # Android only installs an update with a higher number than the one it has
+          VERSION_CODE: ${{ github.run_number }}
 
       # ---- to the page
       - uses: jdno/setup-butler@v2.0.0
@@ -72,5 +83,7 @@ jobs:
           butler push build/windows "$ITCH_PROJECT:windows" --userversion "$version"
           # the zip itself: butler unpacks it, so the page gets the app
           butler push build/macos/Bellwater.zip "$ITCH_PROJECT:mac" --userversion "$version"
+          # the folder, holding only the APK: an .apk is a kind of zip, and butler unpacks zips
+          butler push build/android "$ITCH_PROJECT:android" --userversion "$version"
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}

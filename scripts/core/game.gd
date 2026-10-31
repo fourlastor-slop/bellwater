@@ -594,7 +594,9 @@ func _sync_view() -> void:
 	if shake > 0.0:
 		sh = Vector2(randf_range(-shake, shake), randf_range(-shake, shake))
 	var c := (cam + sh).round()
-	root.position = -c
+	# the camera moves the canvas, not a node: moving a node over the world's tile layers costs
+	# a slow phone most of a frame in transform notifications
+	get_viewport().canvas_transform = Transform2D(0.0, -c)
 	grade.set_shader_parameter("wet_y", wet_y - c.y)
 	grade.set_shader_parameter("cam_x", c.x)
 	grade_wet.set_shader_parameter("wet_y", wet_y - c.y)

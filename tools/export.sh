@@ -13,7 +13,11 @@
 # It is signed here with rcodesign, not by Godot: Godot's own signature is one that newer
 # versions of macOS refuse to start.
 #
-# usage: tools/export.sh [linux|windows|macos]   (linux without any)
+# android: Bellwater.apk, for arm64 phones and x86_64 devices, with the on-screen gamepad. Signed
+# with the keystore in the GODOT_ANDROID_KEYSTORE_RELEASE_PATH, _USER and _PASSWORD variables.
+# It needs ANDROID_HOME and JAVA_HOME. VERSION_CODE, if set, is the build number Android sees.
+#
+# usage: tools/export.sh [linux|windows|macos|android]   (linux without any)
 set -eu
 cd "$(dirname "$0")/.."
 . tools/godot.sh
@@ -23,26 +27,44 @@ case "$platform" in
 	linux) preset=Linux; file=bellwater.x86_64 ;;
 	windows) preset=Windows; file=Bellwater.exe ;;
 	macos) preset=macOS; file=Bellwater.zip ;;
-	*) echo "usage: tools/export.sh [linux|windows|macos]" >&2; exit 1 ;;
+	android) preset=Android; file=Bellwater.apk ;;
+	*) echo "usage: tools/export.sh [linux|windows|macos|android]" >&2; exit 1 ;;
 esac
 
 OUT="build/$platform"
 rm -rf "$OUT"
-mkdir -p "$OUT/licenses"
+mkdir -p "$OUT"
 touch build/.gdignore
+
+# Godot's notices have to travel with the game. An APK stands alone, so they go inside it.
+if [ "$platform" = android ]; then
+	trap 'rm -f data/licenses.txt' EXIT
+	"$GODOT_BIN" --headless --audio-driver Dummy --path . -- licenses "$(pwd)/data/licenses.txt"
+	test -s data/licenses.txt
+	if [ -n "${VERSION_CODE:-}" ]; then
+		sed -i "s/^version\/code=.*/version\/code=$VERSION_CODE/" export_presets.cfg
+	fi
+fi
+
 "$GODOT_BIN" --headless --path . --export-release "$preset" "$OUT/$file"
 test -s "$OUT/$file"
+# a signature for streamed installs, which sideloading has no use for: with it in the folder, itch
+# would see two files and serve a zip instead of the APK
+rm -f "$OUT/$file.idsig"
 
-# Godot's notices have to travel with the game. The Linux binary writes them itself, which also
+# Everything else carries them beside the game. The Linux binary writes them itself, which also
 # proves it starts up on its own; the others can't run here, so the editor writes theirs.
-licenses="$(pwd)/$OUT/licenses/GODOT.txt"
-if [ "$platform" = linux ]; then
-	test -x "$OUT/$file"
-	"$OUT/$file" --headless --audio-driver Dummy -- licenses "$licenses"
-else
-	"$GODOT_BIN" --headless --audio-driver Dummy --path . -- licenses "$licenses"
+if [ "$platform" != android ]; then
+	mkdir "$OUT/licenses"
+	licenses="$(pwd)/$OUT/licenses/GODOT.txt"
+	if [ "$platform" = linux ]; then
+		test -x "$OUT/$file"
+		"$OUT/$file" --headless --audio-driver Dummy -- licenses "$licenses"
+	else
+		"$GODOT_BIN" --headless --audio-driver Dummy --path . -- licenses "$licenses"
+	fi
+	test -s "$licenses"
 fi
-test -s "$licenses"
 
 if [ "$platform" = macos ]; then
 	# The export leaves the app unsigned (the preset's codesign is off). rcodesign signs it ad hoc,

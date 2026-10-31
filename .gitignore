@@ -2,8 +2,9 @@
 .godot/
 *.translation
 
-# Exported builds
+# Exported builds, and the licences written into the Android one
 /build/
+/data/licenses.txt
 
 # The Python environment for the generators in tools/
 /.venv/

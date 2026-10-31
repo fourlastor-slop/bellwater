@@ -45,6 +45,8 @@ func open(m: String) -> void:
 			_build_map()
 		"options":
 			items = ["Music", "Sound", "Language", "Fullscreen", "Done"]
+			if G.touch_screen():
+				items.erase("Fullscreen")
 		"controls":
 			items = ["Done"]
 		"ending":

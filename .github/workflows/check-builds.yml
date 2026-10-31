@@ -1,9 +1,11 @@
 name: Check the published builds
 # Started by hand (the Actions tab, or: gh workflow run check-builds.yml). It builds nothing: it
-# takes the Mac and Windows builds as they are on the itch.io page, the very files a player
-# downloads, and tries them on real systems, which the Linux runner that makes them can't do.
+# takes the builds as they are on the itch.io page, the very files a player downloads, and tries
+# the Mac and Windows ones on real systems, which the Linux runner that makes them can't do.
 # These runners have no usable graphics, so the game runs without a window: this shows that it
 # starts and its scripts load, not how it looks.
+# An emulator's software GPU can't draw the game at all, so the Android build is only inspected,
+# and kept for a day as an artifact, to put on a real phone with adb.
 on:
   workflow_dispatch:
 
@@ -70,6 +72,33 @@ jobs:
           set -o pipefail
           "$EXE" --headless --audio-driver Dummy --quit-after 600 2>&1 | tee run.log
           ! grep -q "SCRIPT ERROR" run.log
+
+  android:
+    name: Android
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: jdno/setup-butler@v2.0.0
+      - name: Fetch the build from the page
+        run: |
+          butler status "$ITCH_PROJECT:android"
+          butler fetch "$ITCH_PROJECT:android" build
+          ls -l build
+          # one file, or the page would hand phones a zip instead of an APK
+          [ "$(find build -type f | wc -l)" -eq 1 ]
+          [ -f build/Bellwater.apk ]
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      - name: What it is
+        run: |
+          tools="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          "$tools/aapt2" dump badging build/Bellwater.apk | grep -E "^package|targetSdk|native-code|application-label:"
+          "$tools/apksigner" verify --print-certs build/Bellwater.apk
+      - uses: actions/upload-artifact@v7
+        with:
+          name: bellwater-apk
+          path: build/Bellwater.apk
+          retention-days: 1
 
   windows:
     name: Windows

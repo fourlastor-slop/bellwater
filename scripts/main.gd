@@ -4,6 +4,7 @@ extends Node
 var game: Game
 var pad := Pad.new()
 var menu: Menu
+var touch: TouchPad
 
 
 func _ready() -> void:
@@ -17,6 +18,10 @@ func _ready() -> void:
 	menu = Menu.new()
 	add_child(menu)
 	menu.action.connect(_on_menu)
+	if G.touch_screen():
+		touch = TouchPad.new()
+		touch.menu = menu
+		add_child(touch)
 	_to_title()
 
 
@@ -62,11 +67,12 @@ func _to_title() -> void:
 func _on_menu(what: String) -> void:
 	match what:
 		"new":
+			# the title is already running on a fresh world: rebuilding it takes seconds on a phone
 			menu.close()
-			G.new_run()
-			await _make_game()
-			game.begin(false)
+			game.attract = false
+			game.hud.hidden = false
 			game.fade = 1.0
+			Sfx.music(game.room.music)
 			G.save_game()
 			var hint := game.hud.show_note.bind(tr("Move with arrows, WASD or the stick. Jump with Space or A."))
 			game.hud.say(tr("The sea left Bellwater when you were small.\n\nThis morning, far off and very faint, you heard a bell."), hint)
@@ -102,11 +108,30 @@ func _on_finished() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") or event.is_action_pressed("map"):
+		_pause()
+
+
+func _pause() -> void:
 	if game == null or game.attract or menu.active() or game.ending > 0 or game.returning:
 		return
-	if event.is_action_pressed("pause") or event.is_action_pressed("map"):
-		if game.respawn_t > 0 or game.hud.dialog_active():
-			return
-		get_tree().paused = true
-		menu.t = 0
-		menu.open("pause")
+	if game.respawn_t > 0 or game.hud.dialog_active():
+		return
+	get_tree().paused = true
+	menu.t = 0
+	menu.open("pause")
+
+
+## On a phone: the system's back button pauses instead of quitting, and leaving the app pauses
+## too, so coming back doesn't drop you into the middle of a fight.
+func _notification(what: int) -> void:
+	if touch == null:
+		return
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if menu.mode == "pause":
+			_on_menu("resume")
+		else:
+			_pause()
+	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		touch.release_all()
+		_pause()

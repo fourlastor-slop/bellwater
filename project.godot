@@ -15,9 +15,11 @@ config/description="The sea left. Ring the bells and call it home."
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/gfx/icon.png"
+config/quit_on_go_back=false
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://assets/gfx/splash.png"
 boot_splash/stretch_mode=2
+boot_splash/stretch_mode.mobile=1
 boot_splash/use_filter=false
 boot_splash/minimum_display_time=1500
 
@@ -36,6 +38,7 @@ window/size/viewport_width=320
 window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
+window/handheld/orientation=4
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

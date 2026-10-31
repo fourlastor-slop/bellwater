@@ -175,6 +175,18 @@ def icon():
     b = bell_shape(40, 34)
     img.alpha_composite(b, (12, 8))
     img.resize((128, 128), Image.NEAREST).save(OUT + "icon.png")
+    img.resize((192, 192), Image.NEAREST).save(OUT + "icon_192.png")
+    # Android's adaptive icon: the sea behind, and the bell in front, inside the circle every
+    # launcher mask leaves visible (the middle 264 of 432)
+    back = Image.new("RGBA", (72, 72), hx("1c3f66"))
+    d = ImageDraw.Draw(back)
+    d.rectangle([0, 49, 71, 71], fill=hx("2a8c8c"))
+    d.line([(0, 49), (71, 49)], fill=hx("c8f5e0"))
+    back.resize((432, 432), Image.NEAREST).save(OUT + "icon_back.png")
+    bell = bell_shape(40, 34).resize((200, 170), Image.NEAREST)
+    front = Image.new("RGBA", (432, 432), (0, 0, 0, 0))
+    front.alpha_composite(bell, (116, 131))
+    front.save(OUT + "icon_front.png")
 
 
 if __name__ == "__main__":

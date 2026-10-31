@@ -14,8 +14,9 @@ About 35-40 minutes to finish, going by the first full playthrough.
 
 In English and Italian: it follows your system's language, and Options changes it.
 
-Get it from [itch.io](https://fourlastor.itch.io/bellwater), for Linux, Windows and macOS. The Windows
-and Mac builds aren't notarized or signed with a paid certificate, so both systems ask the first time:
+Get it from [itch.io](https://fourlastor.itch.io/bellwater), for Linux, Windows, macOS and Android, where
+a gamepad on the screen appears (a real controller works too, and hides it). The Windows and Mac builds
+aren't notarized or signed with a paid certificate, so both systems ask the first time:
 
 - **Windows:** More info, then Run anyway.
 - **macOS:** System Settings, Privacy & Security, then Open Anyway. Or:
@@ -31,9 +32,10 @@ tools/export.sh linux
 build/linux/bellwater.x86_64
 ```
 
-`tools/export.sh windows` and `tools/export.sh macos` work the same way from Linux. The Mac build is signed
+`tools/export.sh windows`, `macos` and `android` work the same way from Linux. The Mac build is signed
 ad hoc with [rcodesign](https://github.com/indygreg/apple-platform-rs), because newer versions of macOS refuse
-to start Godot's own signature: set `RCODESIGN` to its path if it isn't on `PATH`.
+to start Godot's own signature: set `RCODESIGN` to its path if it isn't on `PATH`. The Android build needs
+`ANDROID_HOME`, `JAVA_HOME` and a keystore in Godot's `GODOT_ANDROID_KEYSTORE_RELEASE_*` variables.
 
 ## Controls
 
@@ -96,17 +98,23 @@ tools/run_route.sh          # proves the game can be finished, gates hold, and e
 tools/run_gamepad.sh        # plays the real game with gamepad events only (needs xvfb)
 ```
 
+```bash
+tools/run_touch.sh          # plays the real game by touching the on-screen gamepad (needs xvfb)
+```
+
 `tests/route.gd` searches over the real `Player.tick()` on the real map, so "reachable" means physically
 reachable; it takes about 8 minutes. `tests/flow.gd` drives the real menus with the keyboard actions.
 
 ## Publishing
 
 Every push to `main` runs `.github/workflows/publish.yml`: import, `tools/check.sh`, `tools/export.sh` for each
-platform, then butler pushes to the `linux`, `windows` and `mac` channels of `fourlastor/bellwater`, using the
-`BUTLER_API_KEY` secret. A build's version on itch is the commit it was made from.
+platform, then butler pushes to the `linux`, `windows`, `mac` and `android` channels of `fourlastor/bellwater`.
+A build's version on itch is the commit it was made from. It uses three organization secrets: `BUTLER_API_KEY`,
+`ANDROID_KEYSTORE_BASE64` and `ANDROID_KEYSTORE_PASSWORD`.
 
 `.github/workflows/check-builds.yml` is started by hand: it fetches the published Mac and Windows builds and
-tries them on real systems, because neither can run on the Linux runner that makes them.
+tries them on real systems, because neither can run on the Linux runner that makes them. It also inspects the
+published APK and keeps it for a day as an artifact, for trying on a real phone.
 
 ```bash
 gh workflow run check-builds.yml
