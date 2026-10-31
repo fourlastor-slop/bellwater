@@ -55,7 +55,8 @@ func tick() -> void:
 	var p := game.player
 	match state:
 		DORMANT:
-			if p.ix < arena.end.x - 8 and p.iy < y + 8:
+			# only once the player is well inside: the doors must shut behind them, not on them
+			if p.ix > arena.position.x and p.ix < arena.end.x - 8 and p.iy < ground_y + 8:
 				start_fight()
 				var r := game.room.rect
 				var tx0 := (r.end.x >> 3) - 22

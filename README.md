@@ -8,7 +8,7 @@ A small metroidvania made in Godot 4.7 (GDScript). You are the last bell-ringer'
 bleached, dry harbour town. Ring the tide bells to call the sea back: it rises through one continuous
 world, floats you to places you couldn't reach, and leaves everything it touches in colour.
 
-Probably about an hour to finish (an estimate: it hasn't been timed by a human yet).
+About 35-40 minutes to finish, going by the first full playthrough.
 
 ## Play it
 

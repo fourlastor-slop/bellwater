@@ -224,6 +224,26 @@ func play() -> void:
 	await wait(30)
 	expect("A quits to the title", menu.mode == "title")
 
+	# the end screen, reached the way the game reaches it, and left with a button
+	await main._on_menu("new")
+	await wait(10)
+	main.game.hud.dlg_pages.clear()
+	G.set_flag("drinker_dead")
+	main.game.start_finale()
+	main.game.ending_t = 515
+	await until(func() -> bool: return main.game.hud.dialog_active(), 600)
+	for i in 300:
+		if not main.game.hud.dialog_active():
+			break
+		await tap(JOY_BUTTON_A)
+	await until(func() -> bool: return menu.mode == "ending", 1800)
+	expect("the end screen appears", menu.mode == "ending")
+	await until(func() -> bool: return menu.t > 95, 600)
+	expect("the end screen offers a way out", menu.t > 95)
+	await tap(JOY_BUTTON_A)
+	await until(func() -> bool: return menu.mode == "title", 300)
+	expect("A leaves the end screen", menu.mode == "title")
+
 
 ## Wait for a condition, for as long as a slow software renderer might need.
 func until(done: Callable, frames := 900) -> void:

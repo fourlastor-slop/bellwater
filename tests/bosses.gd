@@ -20,6 +20,8 @@ func _ready() -> void:
 	game.set_physics_process(false)
 	game.begin(false)
 	Sfx.process_mode = Node.PROCESS_MODE_DISABLED
+	walk_in("up the stairs", Vector2i(5 * 320 + 103 * 8, 1 * 184 + 128), -1)
+	walk_in("back in from the Well", Vector2i(5 * 320 + 12, 1 * 184 + 160), 1)
 	fight("hermit", "salthouse", 2, Vector2i(7 * 320 + 90, 3 * 184 + 160), "hermit_dead")
 	fight("conger", "cistern", 2, Vector2i(1 * 320 + 500, 5 * 184 + 100), "conger_dead")
 	fight("albatross", "roofs", 3, Vector2i(5 * 320 + 700, 1 * 184 + 152), "albatross_dead")
@@ -45,6 +47,35 @@ func step(n := 1) -> void:
 	for i in n:
 		game.hud.dlg_pages.clear()
 		game.tick()
+
+
+## Walk into the Albatross's arena on foot, rather than teleporting in: it has to wake, and the
+## doors have to shut with the player inside the arena, not on top of them.
+func walk_in(label: String, at: Vector2i, dir: int) -> void:
+	teleport(at, 3)
+	var pl := game.player
+	var r := game.room.rect
+	var t := 0
+	while t < 60 * 20 and game.boss == null:
+		t += 1
+		pad.clear()
+		pad.x = dir
+		pl.hp = int(G.s.max_hp)
+		pl.iframes = 2
+		step()
+		if pl.ix < r.position.x or pl.ix > r.end.x:
+			break
+	var awake: bool = game.boss != null
+	var free := not pl.box_blocked(pl.ix, pl.iy)
+	var west := game.map.get_tile((r.position.x >> 3) + 1, (r.position.y >> 3) + 17) == WorldMap.DOOR
+	var east := game.map.get_tile((r.end.x >> 3) - 22, (r.position.y >> 3) + 17) == WorldMap.DOOR
+	var ok := awake and free and west and east
+	print("%-22s %s (woke %s after %.1f s at x %d, player free %s, doors %s/%s)" % [label, "ok" if ok else "FAILED", awake, t / 60.0, pl.ix - r.position.x, free, west, east])
+	if not ok:
+		fails += 1
+	game.boss = null
+	game.locked_room = false
+	game.unlock_all()
 
 
 func fight(kind: String, room_id: String, level: int, pos: Vector2i, flag: String) -> void:

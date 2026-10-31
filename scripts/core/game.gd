@@ -840,6 +840,8 @@ func start_finale() -> void:
 
 
 func _ending_tick() -> void:
+	if ending == 2:
+		return
 	ending_t += 1
 	if ending_t % 90 == 0 and ending_t < 600:
 		fx.ring_wave(int(cam.x) + 160, int(cam.y) + 70, Color(1, 0.95, 0.75))
@@ -852,6 +854,7 @@ func _ending_tick() -> void:
 	if ending_t > 540 and not hud.dialog_active():
 		fade = minf(fade + 0.012, 1.0)
 		if fade >= 1.0:
+			ending = 2
 			finished.emit()
 
 
