@@ -9,8 +9,9 @@
 /.venv/
 __pycache__/
 
-# The editor the publish workflow unpacks at the repo root
+# The editor and the Mac build's signer, which the publish workflow unpacks at the repo root
 /Godot_v*/
+/apple-codesign-*/
 
 # .NET artefacts, should the Mono editor create any
 .mono/

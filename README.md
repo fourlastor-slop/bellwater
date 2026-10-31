@@ -12,16 +12,26 @@ About 35-40 minutes to finish, going by the first full playthrough.
 
 ## Play it
 
-Get it from [itch.io](https://fourlastor.itch.io/bellwater), or build it yourself with Godot 4.7.2
-(set `GODOT` to the editor if it isn't found):
+Get it from [itch.io](https://fourlastor.itch.io/bellwater), for Linux, Windows and macOS. The Windows
+and Mac builds aren't notarized or signed with a paid certificate, so both systems ask the first time:
+
+- **Windows:** More info, then Run anyway.
+- **macOS:** System Settings, Privacy & Security, then Open Anyway. Or:
+  `xattr -dr com.apple.quarantine Bellwater.app`
+
+Or build it yourself with Godot 4.7.2 (set `GODOT` to the editor if it isn't found):
 
 ```bash
-tools/export.sh
+tools/export.sh linux
 ```
 
 ```bash
 build/linux/bellwater.x86_64
 ```
+
+`tools/export.sh windows` and `tools/export.sh macos` work the same way from Linux. The Mac build is signed
+ad hoc with [rcodesign](https://github.com/indygreg/apple-platform-rs), because newer versions of macOS refuse
+to start Godot's own signature: set `RCODESIGN` to its path if it isn't on `PATH`.
 
 ## Controls
 
@@ -87,6 +97,13 @@ reachable; it takes about 8 minutes. `tests/flow.gd` drives the real menus with 
 
 ## Publishing
 
-Every push to `main` runs `.github/workflows/publish.yml`: import, `tools/check.sh`, `tools/export.sh`, then
-butler pushes `build/linux` to the `linux` channel of `fourlastor/bellwater`, using the `BUTLER_API_KEY`
-secret. The build's version on itch is the commit it was made from.
+Every push to `main` runs `.github/workflows/publish.yml`: import, `tools/check.sh`, `tools/export.sh` for each
+platform, then butler pushes to the `linux`, `windows` and `mac` channels of `fourlastor/bellwater`, using the
+`BUTLER_API_KEY` secret. A build's version on itch is the commit it was made from.
+
+`.github/workflows/check-builds.yml` is started by hand: it fetches the published Mac and Windows builds and
+tries them on real systems, because neither can run on the Linux runner that makes them.
+
+```bash
+gh workflow run check-builds.yml
+```

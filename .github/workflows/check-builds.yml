@@ -1,0 +1,107 @@
+name: Check the published builds
+# Started by hand (the Actions tab, or: gh workflow run check-builds.yml). It builds nothing: it
+# takes the Mac and Windows builds as they are on the itch.io page, the very files a player
+# downloads, and tries them on real systems, which the Linux runner that makes them can't do.
+# These runners have no usable graphics, so the game runs without a window: this shows that it
+# starts and its scripts load, not how it looks.
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+env:
+  ITCH_PROJECT: 'fourlastor/bellwater'
+
+jobs:
+  mac:
+    name: Mac (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # macos-26 and macos-15 are Apple Silicon
+        runner: [ macos-26, macos-15, macos-26-intel ]
+    steps:
+      - uses: jdno/setup-butler@v2.0.0
+      - name: Fetch the build from the page
+        run: |
+          butler status "$ITCH_PROJECT:mac"
+          butler fetch "$ITCH_PROJECT:mac" build
+          app="$(ls -d "$PWD"/build/*.app | head -1)"
+          echo "APP=$app" >> "$GITHUB_ENV"
+          echo "EXE=$(find "$app/Contents/MacOS" -type f -perm +111 | head -1)" >> "$GITHUB_ENV"
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+
+      - name: What it is
+        run: |
+          sw_vers
+          uname -m
+          echo "app: $APP"
+          echo "executable: $EXE"
+          lipo -archs "$EXE"
+          du -sh "$APP"
+
+      - name: Signature
+        run: |
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          codesign -d --verbose=4 --entitlements - "$APP"
+
+      # an app that is not notarized is rejected here: that is the quarantine's side, not a fault
+      - name: Gatekeeper's verdict
+        if: ${{ !cancelled() }}
+        run: spctl -a -vv "$APP" || true
+
+      # as a double click starts it: the game writes out its licences and quits
+      - name: Start it as a double click does
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        run: |
+          open -W -n --stdout "$PWD/open.out" --stderr "$PWD/open.err" "$APP" --args --headless --audio-driver Dummy -- licenses "$PWD/started.txt" || status=$?
+          cat open.out open.err 2>/dev/null || true
+          [ "${status:-0}" -eq 0 ]
+          [ -s started.txt ]
+
+      - name: Run the title screen for a while
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        run: |
+          set -o pipefail
+          "$EXE" --headless --audio-driver Dummy --quit-after 600 2>&1 | tee run.log
+          ! grep -q "SCRIPT ERROR" run.log
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: jdno/setup-butler@v2.0.0
+      - name: Fetch the build from the page
+        shell: bash
+        run: |
+          butler status "$ITCH_PROJECT:windows"
+          butler fetch "$ITCH_PROJECT:windows" build
+          ls -l build
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+
+      # the game writes out its licences and quits
+      - name: Start it
+        timeout-minutes: 5
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "build\Bellwater.exe" -ArgumentList "--headless --audio-driver Dummy -- licenses `"$PWD\started.txt`"" -Wait -PassThru
+          "exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0 -or -not (Test-Path started.txt)) { exit 1 }
+
+      - name: Run the title screen for a while
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "build\Bellwater.exe" -ArgumentList "--headless --audio-driver Dummy --quit-after 600" -Wait -PassThru -RedirectStandardOutput out.txt -RedirectStandardError err.txt
+          Get-Content out.txt, err.txt
+          "exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { exit 1 }
+          if (Select-String -Quiet -Pattern "SCRIPT ERROR" -Path out.txt, err.txt) { exit 1 }

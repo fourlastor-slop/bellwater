@@ -1,5 +1,5 @@
 name: 'Godot Setup'
-description: 'The Godot editor at the repo root and the Linux export template the build uses'
+description: 'The Godot editor at the repo root and the export templates the builds use'
 runs:
   using: "composite"
   steps:
@@ -20,7 +20,7 @@ runs:
         path: |
           Godot_v${{ env.GODOT_VERSION }}-${{ env.RELEASE_NAME }}_mono_linux_x86_64
           ~/.local/share/godot/export_templates/
-        key: godot-installation-${{ env.GODOT_VERSION }}-${{ env.RELEASE_NAME }}
+        key: godot-installation-desktop-${{ env.GODOT_VERSION }}-${{ env.RELEASE_NAME }}
     - name: Download godot
       shell: bash
       if: steps.cache-godot-install.outputs.cache-hit != 'true'
@@ -34,8 +34,9 @@ runs:
         # the project is the repo root here, so the editor's folder sits inside it: this file
         # keeps Godot from scanning it as part of the project
         touch "Godot_v${GODOT_VERSION}-${RELEASE_NAME}_mono_linux_x86_64/.gdignore"
-        # of the templates, only the one the export uses
-        unzip -q "$templates" templates/version.txt templates/linux_release.x86_64
+        # of the templates, only the ones the exports use
+        unzip -q "$templates" templates/version.txt templates/linux_release.x86_64 templates/macos.zip \
+          templates/windows_release_x86_64.exe templates/windows_release_x86_64_console.exe
         mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.${RELEASE_NAME}.mono
         mv templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.${RELEASE_NAME}.mono
         rm -r templates "$editor" "$templates"
